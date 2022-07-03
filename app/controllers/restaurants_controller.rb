@@ -3,7 +3,14 @@ class RestaurantsController < ApplicationController
 
 
     def index
-        @restaurant = Restaurant.all
+        @restaurants = Restaurant.all
+
+        @markers = @restaurants.geocoded.map do |restaurant|
+            {
+              lat: restaurant.latitude,
+              lng: restaurant.longitude
+            }
+          end
     end
 
     def show
@@ -28,9 +35,11 @@ class RestaurantsController < ApplicationController
     end
 
     def update
-        @restaurant = Restaurant.update(restaurant_params)
-
-        redirect_to restaurants_path
+        if @restaurant.update(restaurant_params)
+            redirect_to restaurants_path
+        else
+            render :edit
+        end
     end
 
     def destroy
