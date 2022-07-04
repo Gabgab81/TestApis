@@ -3,7 +3,8 @@ class RestaurantsController < ApplicationController
 
 
     def index
-        @restaurants = Restaurant.all
+        # @restaurants = Restaurant.all
+        @restaurants = policy_scope(Restaurant)
 
         @markers = @restaurants.geocoded.map do |restaurant|
             {
@@ -20,11 +21,13 @@ class RestaurantsController < ApplicationController
 
     def new
         @restaurant = Restaurant.new
+        authorize @restaurant
     end
 
     def create
         @restaurant = Restaurant.new(restaurant_params)
-        @restaurant.user_id = current_user.id
+        @restaurant.user = current_user
+        authorize @restaurant
         if @restaurant.save
             redirect_to restaurants_path
         else
@@ -53,6 +56,7 @@ class RestaurantsController < ApplicationController
 
     def set_restaurant
         @restaurant = Restaurant.find(params[:id])
+        authorize @restaurant
     end
 
     def restaurant_params

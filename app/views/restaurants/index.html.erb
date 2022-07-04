@@ -2,13 +2,24 @@
 
 <% @restaurants.each do |restaurant| %>
 <p> <%= restaurant.name %> at the address <%= restaurant.address %> 
-<%= link_to 'Edit', edit_restaurant_path(restaurant) %>
-<%= link_to "Delete #{restaurant.name}",
-            restaurant_path(restaurant),
-            method: :delete,
-            data: { confirm: "Are you sure?" } %>
-</p>
+
+
+<%= link_to 'Edit', edit_restaurant_path(restaurant) if policy(restaurant).edit? %>
+
+
+<% if policy(restaurant).destroy? %>
+  <%= link_to "Delete #{restaurant.name}",
+              restaurant_path(restaurant),
+              method: :delete,
+              data: { confirm: "Are you sure?" } %>
 <% end %>
+
+
+</p>
+
+<% end %>
+
+
 <%= link_to 'Create a new restaurant', new_restaurant_path %>
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.css' rel='stylesheet' />
 <div style="width: 100%; height: 600px;"
