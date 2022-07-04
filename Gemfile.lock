@@ -251,11 +251,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
-<<<<<<< HEAD
-  device
-=======
   devise
->>>>>>> 56e2bfbb1199155cee8cd79b527d57b5c1b46e9b
   dotenv-rails
   font-awesome-sass (~> 5.6.1)
   geocoder
