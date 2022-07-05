@@ -34,6 +34,7 @@ gem 'simple_form', github: 'heartcombo/simple_form'
 gem "geocoder"
 gem "devise"
 gem "pundit"
+gem "pg_search"
 
 group :development, :test do
   gem 'pry-byebug'

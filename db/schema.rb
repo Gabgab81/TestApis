@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_04_212124) do
+ActiveRecord::Schema.define(version: 2022_07_05_194916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "directors", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "title"
+    t.integer "year"
+    t.text "synopsis"
+    t.bigint "director_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["director_id"], name: "index_movies_on_director_id"
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text "content"
+    t.string "searchable_type"
+    t.bigint "searchable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
+  end
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
@@ -24,6 +50,14 @@ ActiveRecord::Schema.define(version: 2022_07_04_212124) do
     t.float "longitude"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_restaurants_on_user_id"
+  end
+
+  create_table "tv_shows", force: :cascade do |t|
+    t.string "title"
+    t.integer "year"
+    t.text "synopsis"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,5 +74,6 @@ ActiveRecord::Schema.define(version: 2022_07_04_212124) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "movies", "directors"
   add_foreign_key "restaurants", "users"
 end
