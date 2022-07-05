@@ -35,6 +35,7 @@ gem "geocoder"
 gem "devise"
 gem "pundit"
 gem "pg_search"
+gem "cloudinary"
 
 group :development, :test do
   gem 'pry-byebug'
