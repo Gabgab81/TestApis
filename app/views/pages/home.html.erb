@@ -1,4 +1,13 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
+
+<%= cl_image_tag("hztyzrpsdhkwkunmw840",
+      width: 400, height: 300, crop: :fill) %>
+
+<!-- for face detection -->
+<%= cl_image_tag("ev7iakw6cge381jef4vf",
+      width: 150, height: 150, crop: :thumb, gravity: :face) %>
+
+
 <p> <%= link_to 'Check restaurants', restaurants_path %></p>
 <p> <%= link_to 'Check movies', movies_path %></p>
